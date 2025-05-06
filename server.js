@@ -5,7 +5,7 @@ const cors = require('cors');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 app.use(express.json());
@@ -15,5 +15,5 @@ app.get('/api/ping', (req,res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server runnign on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
