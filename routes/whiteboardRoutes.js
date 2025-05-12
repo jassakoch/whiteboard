@@ -12,11 +12,8 @@ router.get('/:id', async(req,res) => {
 
  // Check if the provided id is a valid ObjectId
  if (!mongoose.Types.ObjectId.isValid(id)) {
-  console.log("Invalid ObjectId:", id);  // Debugging line
-
   return res.status(404).json({ message: 'Whiteboard not found' });
 }
-console.log("Valid ObjectId:", id);  // Debugging line
 
     const { id  } = req.params;
     const whiteboard = await Whiteboard.findById(id);
@@ -26,8 +23,10 @@ console.log("Valid ObjectId:", id);  // Debugging line
   if(!whiteboard) {
     return res.status(404).json({message: 'Whiteboard not found'})
   }
-console.log("Fetched Whiteboard:", whiteboard);
+
+
   res.status(200).json(whiteboard);
+  
 } catch(err) {
   console.error("Error in GET /api/whiteboard/:id", err);
   res.status(500).json({ message: err.message})

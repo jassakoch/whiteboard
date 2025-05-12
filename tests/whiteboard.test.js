@@ -3,11 +3,18 @@ import request from 'supertest';
 import app from '../server.js';
 import Whiteboard from '../models/Whiteboard.js';
 
+let testWhiteboard;
+
+
 beforeAll(async () => {
   const MONGO_URI = process.env.MONGO_URI_TEST;
   await mongoose.connect(MONGO_URI);
 
+  // Create a whiteboard for testing
+  testWhiteboard = await Whiteboard.create({ title: 'Test Whiteboard', createdBy: 'Test User' });
+
   console.log("Connected to test database");
+  console.log("Test Whiteboard:", testWhiteboard);
 
 });
 
@@ -41,15 +48,15 @@ describe('POST /api/whiteboard', () => {
   });
 });
 
-
+//GET test
 describe('GET/api/whiteboard/:id', () => {
   it('should return a whiteboard by ID', async () => {
-    const whiteboard = new Whiteboard({ title: 'Test Whiteboard', createdBy: 'Test User'})
-    await whiteboard.save();
+    console.log("Testing GET route with ID:", testWhiteboard._id);
 
+   
     const response = await request(app)
 
-    .get(`/api/whiteboard/${whiteboard._id}`)
+    .get(`/api/whiteboard/${testWhiteboard._id}`)
     .expect(200);
 
     expect(response.body.title).toBe('Test Whiteboard');
@@ -71,18 +78,17 @@ describe('GET/api/whiteboard/:id', () => {
 describe('DELETE /api/whiteboard/:id', () => {
   it('should delete a whiteboard by ID', async () => {
     // First, create a whiteboard to test with
-    const whiteboard = new Whiteboard({ title: 'Test Whiteboard', createdBy: 'Test User' });
-    await whiteboard.save();
+    const whiteboardToDelete = await Whiteboard.create({ title: 'Delete Test', createdBy: 'Test User' });
 
     const response = await request(app)
-      .delete(`/api/whiteboard/${whiteboard._id}`)
+      .delete(`/api/whiteboard/${whiteboardToDelete._id}`)
       .expect(200);
 
     expect(response.body.message).toBe('Whiteboard deleted');
   });
 
   it('should return 404 if whiteboard not found', async () => {
-    const fakeId = '60c72bdf4f1a2c1b4c3c0f79';  // An ID that doesn't exist
+    const fakeId = new mongoose.Types.ObjectId();//An ID that doesn't exist
     const response = await request(app)
       .delete(`/api/whiteboard/${fakeId}`)
       .expect(404);
