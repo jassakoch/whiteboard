@@ -4,6 +4,21 @@ import Whiteboard from "../models/Whiteboard.js";
 
 const router = express.Router();
 
+//GET route to get a whiteboard by ID
+router.get('/:id', async(req,res) => {
+  try { 
+    const whiteboard = await Whiteboard.findById(req.params,id);
+  if(!whiteboard) {
+    return res.status(404).json({message: 'Whiteboard not found'})
+  }
+  res.json(whiteboard);
+} catch(err) {
+  res.status(500).json({ message: err.message})
+}
+});
+
+
+
 // POST route to create a new whiteboard
 router.post("/", async (req, res) => {
   const { title, createdBy } = req.body;
@@ -21,5 +36,20 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Server error. Could not save whiteboard." });
   }
 });
+
+//DELETE route to delete whiteboard by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const whiteboard = await Whiteboard.findByIdAndDelete(req.params.id);
+    if (!whiteboard) {
+      return res.status(404).json({ message: 'Whiteboard not found' });
+    }
+    res.status(200).json({ message: 'Whiteboard deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+})
+
+
 
 export default router;

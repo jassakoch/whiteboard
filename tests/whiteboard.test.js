@@ -6,9 +6,6 @@ import Whiteboard from '../models/Whiteboard.js';
 beforeAll(async () => {
   const MONGO_URI = process.env.MONGO_URI_TEST;
   await mongoose.connect(MONGO_URI);
-//    { useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   }
 
   console.log("Connected to test database");
 
