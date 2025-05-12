@@ -9,13 +9,13 @@ const router = express.Router();
 //GET route to get a whiteboard by ID
 router.get('/:id', async(req,res) => {
   try { 
+    const { id  } = req.params;
 
  // Check if the provided id is a valid ObjectId
  if (!mongoose.Types.ObjectId.isValid(id)) {
   return res.status(404).json({ message: 'Whiteboard not found' });
 }
 
-    const { id  } = req.params;
     const whiteboard = await Whiteboard.findById(id);
     console.log("Fetched Whiteboard:", whiteboard); 
 
@@ -26,7 +26,7 @@ router.get('/:id', async(req,res) => {
 
 
   res.status(200).json(whiteboard);
-  
+
 } catch(err) {
   console.error("Error in GET /api/whiteboard/:id", err);
   res.status(500).json({ message: err.message})
