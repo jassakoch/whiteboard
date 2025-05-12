@@ -59,7 +59,7 @@ describe('GET/api/whiteboard/:id', () => {
   it ('should return 404 if whiteboard not found', async () => {
     const fakeId = '83hjkd982389hcd83j94j'
     const response = await request(app)
-    .get(`api/whiteboard/${fakeId}`)
+    .get(`/api/whiteboard/${fakeId}`)
       .expect(404);
 
       expect(response.body.message).toBe('Whiteboard not found');
