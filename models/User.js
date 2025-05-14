@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";  // Import bcrypt
 
-// User schema with validation and password field
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -19,13 +19,22 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true, // Password field (make sure to hash it later)
+      required: true, 
     },
   },
   {
     timestamps: true, // Automatically add createdAt and updatedAt fields
   }
 );
+
+userSchema.pre('save', async function (next) {
+    if (this.isModified('password')) {
+      // Generate a salt and hash the password
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
+    }
+    next(); // Move on to saving the user
+  });
 
 const User = mongoose.model("User", userSchema);
 

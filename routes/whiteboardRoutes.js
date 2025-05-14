@@ -4,10 +4,10 @@ import Whiteboard from "../models/Whiteboard.js";
 import mongoose from 'mongoose';
 
 
-const router = express.Router();
+const whiteboardRouter = express.Router();
 
 //GET route to get a whiteboard by ID
-router.get('/:id', async(req,res) => {
+whiteboardRouter.get('/:id', async(req,res) => {
   try { 
     const { id  } = req.params;
 
@@ -36,7 +36,7 @@ router.get('/:id', async(req,res) => {
 
 
 // POST route to create a new whiteboard
-router.post("/", async (req, res) => {
+whiteboardRouter.post("/", async (req, res) => {
   const { title, createdBy } = req.body;
 
   if (!title || !createdBy) {
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
 });
 
 //DELETE route to delete whiteboard by ID
-router.delete('/:id', async (req, res) => {
+whiteboardRouter.delete('/:id', async (req, res) => {
   try {
     const whiteboard = await Whiteboard.findByIdAndDelete(req.params.id);
     if (!whiteboard) {
@@ -68,4 +68,4 @@ router.delete('/:id', async (req, res) => {
 
 
 
-export default router;
+export default whiteboardRouter;

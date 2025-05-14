@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
-import router from './routes/whiteboardRoutes.js';
+import whiteboardRouter from './routes/whiteboardRoutes.js';
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 //Routes
-app.use("/api/whiteboard", router);
+app.use("/api/whiteboard", whiteboardRouter);
 export default app;  // This exports the app
 
 
