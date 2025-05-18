@@ -75,6 +75,4 @@ userRouter.put('/update-password', async (req, res) => {
 });
 
 
-
-
 export default userRouter;
