@@ -20,7 +20,13 @@ app.use(express.json());
 
 //Routes
 app.use("/api/whiteboard", whiteboardRouter);
-app.use("api/users", userRouter);
+app.use("/api/users", userRouter);
+
+
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on http://localhost:${PORT}`);
+});
+
 
 export default app;  // This exports the app
 
