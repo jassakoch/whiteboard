@@ -2,6 +2,8 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken'; 
+import protect from '../middleware/auth.js'; 
+
 
 const userRouter = express.Router();
 
@@ -79,7 +81,7 @@ userRouter.post('/login', async (req, res) => {
 
 
 // PUT route to update password
-userRouter.put('/update-password', async (req, res) => {
+userRouter.put('/update-password', protect, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
     try {
