@@ -1,5 +1,5 @@
 import express from 'express';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken'; 
 import protect from '../middleware/auth.js'; 
@@ -55,11 +55,14 @@ userRouter.post('/login', async (req, res) => {
         const user = await User.findOne({ email });
         console.log(user)
         console.log(password)
+        console.log('Comparing:', password, 'with hash:', user.password);
+
         if (!user) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log('isMatch:', isMatch);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
