@@ -51,10 +51,7 @@ userRouter.post('/login', async (req, res) => {
 
     try {
         const user = await User.findOne({ email });
-        console.log(user)
-        console.log(password)
-        console.log('Comparing:', password, 'with hash:', user.password);
-
+        
         if (!user) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
