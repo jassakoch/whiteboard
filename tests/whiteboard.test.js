@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
-import app from '../server.js';
+import app from '../app.js';
 import Whiteboard from '../models/Whiteboard.js';
 
 let testWhiteboard;
