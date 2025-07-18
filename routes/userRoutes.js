@@ -112,4 +112,39 @@ userRouter.put('/update-password', protect, async (req, res) => {
 });
 
 
+//GET route
+// GET user by ID
+userRouter.get('/:id', protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-password');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error('Error fetching user by ID:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+//DELETE route
+userRouter.delete('/delete', protect, async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'User account deleted' });
+    } catch (err) {
+        console.error('Error deleting user:', err);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
 export default userRouter;
