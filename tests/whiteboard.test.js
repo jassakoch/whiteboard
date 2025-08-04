@@ -96,3 +96,27 @@ describe('DELETE /api/whiteboard/:id', () => {
     expect(response.body.message).toBe('Whiteboard not found');
   });
 });
+
+describe('PUT /api/whiteboard/:id', () => {
+  it('should update a whiteboard title', async () => {
+    const updatedData = { title: 'Updated Title' };
+
+    const response = await request(app)
+      .put(`/api/whiteboard/${testWhiteboard._id}`)
+      .send(updatedData)
+      .expect(200);
+
+    expect(response.body.title).toBe('Updated Title');
+  });
+
+  it('should return 404 if whiteboard not found', async () => {
+    const fakeId = new mongoose.Types.ObjectId();
+    const response = await request(app)
+      .put(`/api/whiteboard/${fakeId}`)
+      .send({ title: 'Does not matter' })
+      .expect(404);
+
+    expect(response.body.message).toBe('Whiteboard not found');
+  });
+});
+
