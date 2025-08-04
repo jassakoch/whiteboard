@@ -66,6 +66,31 @@ whiteboardRouter.delete('/:id', async (req, res) => {
   }
 })
 
+// PUT route to update a whiteboard by ID
+whiteboardRouter.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, createdBy } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ message: 'Whiteboard not found' });
+  }
+
+  try {
+    const updatedWhiteboard = await Whiteboard.findByIdAndUpdate(
+      id,
+      { title, createdBy },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedWhiteboard) {
+      return res.status(404).json({ message: 'Whiteboard not found' });
+    }
+
+    res.status(200).json(updatedWhiteboard);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 
 export default whiteboardRouter;
