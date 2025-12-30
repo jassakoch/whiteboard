@@ -24,13 +24,16 @@ userRouter.post('/register', async (req, res) => {
         }
 
        
+        //Hash password before saving
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         // Create new user
         const newUser = new User({
             firstName,
             lastName,
             email,
-            password,
+            password: hashedPassword,//use hashed password
         });
 
         await newUser.save();
