@@ -1,14 +1,15 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
-import jwt from 'jsonwebtoken'; 
-import protect from '../middleware/auth.js'; 
+import jwt from 'jsonwebtoken';
+import protect from '../middleware/auth.js';
 
 
 const userRouter = express.Router();
 
 // POST route for user registration
 userRouter.post('/register', async (req, res) => {
+    console.log("BODY:", req.body);
     const { firstName, lastName, email, password } = req.body;
 
     if (!firstName || !lastName || !email || !password) {
@@ -23,7 +24,7 @@ userRouter.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'Email already registered' });
         }
 
-       
+
 
         // Create new user
         const newUser = new User({
@@ -51,7 +52,7 @@ userRouter.post('/login', async (req, res) => {
 
     try {
         const user = await User.findOne({ email });
-        
+
         if (!user) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
@@ -82,6 +83,9 @@ userRouter.post('/login', async (req, res) => {
 
 // PUT route to update password
 userRouter.put('/update-password', protect, async (req, res) => {
+    console.log("🧠 headers:", req.headers);
+    console.log("🧠 body:", req.body);
+
     const { currentPassword, newPassword } = req.body;
 
     try {
@@ -98,11 +102,14 @@ userRouter.put('/update-password', protect, async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Current password is incorrect' });
         }
+        user.password = newPassword;
+        await user.save();
+
 
         // Hash the new password and save
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(newPassword, salt);
-        await user.save();
+        // const salt = await bcrypt.genSalt(10);
+        // user.password = await bcrypt.hash(newPassword, salt);
+        // await user.save();
 
         res.status(200).json({ message: 'Password updated successfully' });
     } catch (err) {
@@ -113,20 +120,15 @@ userRouter.put('/update-password', protect, async (req, res) => {
 
 
 //GET route
-// GET user by ID
-userRouter.get('/:id', protect, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id).select('-password');
+// GET current user
+userRouter.get('/me', protect, async (req, res) => {
+    try {
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+        res.status(200).json(req.user);
+    } catch (err) {
+        console.error('Error fetching current user', err);
+        res.status(500).json({ message: 'Server error' });
     }
-
-    res.status(200).json(user);
-  } catch (err) {
-    console.error('Error fetching user by ID:', err);
-    res.status(500).json({ message: 'Server error' });
-  }
 });
 
 

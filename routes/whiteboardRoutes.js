@@ -37,16 +37,18 @@ whiteboardRouter.get('/:id', async(req,res) => {
 
 // POST route to create a new whiteboard
 whiteboardRouter.post("/", async (req, res) => {
-  const { title, createdBy } = req.body;
+  const { title } = req.body;
 
-  if (!title || !createdBy) {
-    return res.status(400).json({ message: "Title and CreatedBy are required." });
+  if (!title) {
+    return res.status(400).json({ message: "Title is required." });
   }
 
   try {
-    const newWhiteboard = new Whiteboard({ title, createdBy });
-    const savedWhiteboard = await newWhiteboard.save();
-    res.status(201).json(savedWhiteboard);
+   const whiteboard = await Whiteboard.create({
+    title,
+    createdBy: req.user.id
+   });
+    res.status(201).json(whiteboard);
   } catch (error) {
     console.error("Error saving whiteboard:", error.message);
     res.status(500).json({ message: "Server error. Could not save whiteboard." });
