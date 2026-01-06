@@ -83,8 +83,6 @@ userRouter.post('/login', async (req, res) => {
 
 // PUT route to update password
 userRouter.put('/update-password', protect, async (req, res) => {
-    console.log("🧠 headers:", req.headers);
-    console.log("🧠 body:", req.body);
 
     const { currentPassword, newPassword } = req.body;
 
@@ -102,14 +100,9 @@ userRouter.put('/update-password', protect, async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Current password is incorrect' });
         }
+        //passsword already hashed at user model level with a pre-save hook
         user.password = newPassword;
         await user.save();
-
-
-        // Hash the new password and save
-        // const salt = await bcrypt.genSalt(10);
-        // user.password = await bcrypt.hash(newPassword, salt);
-        // await user.save();
 
         res.status(200).json({ message: 'Password updated successfully' });
     } catch (err) {

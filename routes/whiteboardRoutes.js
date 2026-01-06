@@ -2,34 +2,23 @@
 import express from "express";
 import Whiteboard from "../models/Whiteboard.js";
 import mongoose from 'mongoose';
+import protect from "../middleware/auth.js";
 
 
 const whiteboardRouter = express.Router();
+whiteboardRouter.use(protect);
 
-//GET route to get a whiteboard by ID
-whiteboardRouter.get('/:id', async(req,res) => {
+//GET route for logged in user
+whiteboardRouter.get('/', async(req,res) => {
   try { 
-    const { id  } = req.params;
+    const whiteboards = await Whiteboard.find({
+      createdBy: req.user.id
+    }).sort({ createdAt: -1 });
 
- // Check if the provided id is a valid ObjectId
- if (!mongoose.Types.ObjectId.isValid(id)) {
-  return res.status(404).json({ message: 'Whiteboard not found' });
-}
+  res.status(200).json(whiteboards);
 
-    const whiteboard = await Whiteboard.findById(id);
-    console.log("Fetched Whiteboard:", whiteboard); 
-
-
-  if(!whiteboard) {
-    return res.status(404).json({message: 'Whiteboard not found'})
-  }
-
-
-  res.status(200).json(whiteboard);
-
-} catch(err) {
-  console.error("Error in GET /api/whiteboard/:id", err);
-  res.status(500).json({ message: err.message})
+  } catch(error) {
+  res.status(500).json({ message: error.message});
 }
 });
 
@@ -58,10 +47,18 @@ whiteboardRouter.post("/", async (req, res) => {
 //DELETE route to delete whiteboard by ID
 whiteboardRouter.delete('/:id', async (req, res) => {
   try {
-    const whiteboard = await Whiteboard.findByIdAndDelete(req.params.id);
+    const whiteboard = await Whiteboard.findById(req.params.id);
     if (!whiteboard) {
       return res.status(404).json({ message: 'Whiteboard not found' });
     }
+
+    //ownership check
+    if(whiteboard.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Not authorized'});
+    }
+
+    await whiteboard.deleteOne();
+
     res.status(200).json({ message: 'Whiteboard deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -71,28 +68,33 @@ whiteboardRouter.delete('/:id', async (req, res) => {
 // PUT route to update a whiteboard by ID
 whiteboardRouter.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const { title, createdBy } = req.body;
+  const { title } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: 'Whiteboard not found' });
   }
 
   try {
-    const updatedWhiteboard = await Whiteboard.findByIdAndUpdate(
-      id,
-      { title, createdBy },
-      { new: true, runValidators: true }
-    );
+    const whiteboard = await Whiteboard.findById(id);
 
-    if (!updatedWhiteboard) {
+    if (!whiteboard) {
       return res.status(404).json({ message: 'Whiteboard not found' });
     }
 
-    res.status(200).json(updatedWhiteboard);
+    // 🔐 ownership check
+    if (whiteboard.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Not authorized' });
+    }
+
+    whiteboard.title = title ?? whiteboard.title;
+    await whiteboard.save();
+
+    res.status(200).json(whiteboard);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 export default whiteboardRouter;
