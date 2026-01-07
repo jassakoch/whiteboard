@@ -26,6 +26,8 @@ whiteboardRouter.get('/', async(req,res) => {
 
 // POST route to create a new whiteboard
 whiteboardRouter.post("/", async (req, res) => {
+    console.log("REQ BODY:", req.body);
+  console.log("REQ USER:", req.user);
   const { title } = req.body;
 
   if (!title) {
@@ -33,6 +35,18 @@ whiteboardRouter.post("/", async (req, res) => {
   }
 
   try {
+   // 1️⃣ Find existing whiteboards for this user with the same title
+    const existing = await Whiteboard.find({
+      createdBy: req.user.id,
+      title: { $regex: `^${title}` } // matches title or title + [n]
+    });
+
+    // 2️⃣ If there are existing, append a number
+    let finalTitle = title;
+    if (existing.length > 0) {
+      finalTitle = `${title} [${existing.length}]`;
+    }
+
    const whiteboard = await Whiteboard.create({
     title,
     createdBy: req.user.id
