@@ -31,6 +31,20 @@ The API has been tested using:
 - `Supertest` for simulating HTTP requests
 - `Mongoose` uses separate **test database** to avoid messikng with live data.
 
+## 🧪 API Testing
+This project includes a fully automated Postman collection to test the Backend API.
+
+### Features
+- **Request Chaining:** Authentication tokens and resource IDs are automatically captured and passed between requests using scripts.
+- **Environment Variables:** Easily switch between local development and production base URLs.
+- **Automated Tests:** Includes status code verification and data integrity checks.
+
+### How to use
+1. Open Postman and Import the files found in the `/postman` folder.
+2. Select the `Local Dev` environment.
+3. Run the **Login** request first to generate your `authToken`.
+4. Use the **Collection Runner** to execute the full suite in one click.
+
 ```bash
 npm test
 

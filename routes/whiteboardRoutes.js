@@ -24,39 +24,39 @@ whiteboardRouter.get('/', async(req,res) => {
 
 
 
-// POST route to create a new whiteboard
-whiteboardRouter.post("/", async (req, res) => {
-    console.log("REQ BODY:", req.body);
-  console.log("REQ USER:", req.user);
-  const { title } = req.body;
+function escapeRegex(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
-  if (!title) {
-    return res.status(400).json({ message: "Title is required." });
-  }
+whiteboardRouter.post("/", async (req, res) => {
+  const { title } = req.body || {};
+  if (!title) return res.status(400).json({ message: "Title is required." });
 
   try {
-   // 1️⃣ Find existing whiteboards for this user with the same title
+    const regexTitle = escapeRegex(title);
+
     const existing = await Whiteboard.find({
       createdBy: req.user.id,
-      title: { $regex: `^${title}` } // matches title or title + [n]
+      title: { $regex: `^${regexTitle}` }
     });
 
-    // 2️⃣ If there are existing, append a number
     let finalTitle = title;
     if (existing.length > 0) {
       finalTitle = `${title} [${existing.length}]`;
     }
 
-   const whiteboard = await Whiteboard.create({
-    title,
-    createdBy: req.user.id
-   });
+    const whiteboard = await Whiteboard.create({
+      title: finalTitle,
+      createdBy: req.user.id,
+    });
+
     res.status(201).json(whiteboard);
   } catch (error) {
-    console.error("Error saving whiteboard:", error.message);
+    console.error("Error saving whiteboard:", error);
     res.status(500).json({ message: "Server error. Could not save whiteboard." });
   }
 });
+
 
 //DELETE route to delete whiteboard by ID
 whiteboardRouter.delete('/:id', async (req, res) => {
