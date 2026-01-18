@@ -1,0 +1,603 @@
+FAIL tests/whiteboard.test.js
+  ● Console
+
+    console.log
+      MongoDB Connected to TEST (Cloud): 127.0.0.1
+
+      at log (config/db.js:18:13)
+
+    console.log
+      Test Whiteboard: {
+        title: 'Test Whiteboard',
+        createdBy: '696d370915233891bbfcc08e',
+        content: [],
+        _id: new ObjectId('696d370915233891bbfcc091'),
+        __v: 0
+      }
+
+      at log (tests/whiteboard.test.js:38:11)
+
+    console.log
+      ➡️ Incoming: POST /api/whiteboard
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: YES
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: POST /api/whiteboard
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: POST /api/whiteboard
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.error
+      Error saving whiteboard: TypeError: Cannot read properties of null (reading 'id')
+          at id (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:38:27)
+          at call (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:2:1)
+          at Generator.s (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:2:1)
+          at Generator._invoke [as next] (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:2:1)
+          at asyncGeneratorStep (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:2:1)
+          at asyncGeneratorStep (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:2:1)
+          at _next (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:2:1)
+          at new Promise (<anonymous>)
+          at /Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:2:1
+          at apply (/Users/paulinajassa/whiteboard-backend/routes/whiteboardRoutes.js:57:2)
+          at Layer.handleRequest (/Users/paulinajassa/whiteboard-backend/node_modules/router/lib/layer.js:152:17)
+          at next (/Users/paulinajassa/whiteboard-backend/node_modules/router/lib/route.js:157:13)
+          at Route.dispatch (/Users/paulinajassa/whiteboard-backend/node_modules/router/lib/route.js:117:3)
+          at handle (/Users/paulinajassa/whiteboard-backend/node_modules/router/index.js:435:11)
+          at Layer.handleRequest (/Users/paulinajassa/whiteboard-backend/node_modules/router/lib/layer.js:152:17)
+          at /Users/paulinajassa/whiteboard-backend/node_modules/router/index.js:295:15
+          at processParams (/Users/paulinajassa/whiteboard-backend/node_modules/router/index.js:582:12)
+          at next (/Users/paulinajassa/whiteboard-backend/node_modules/router/index.js:291:5)
+          at next (/Users/paulinajassa/whiteboard-backend/middleware/auth.js:17:13)
+          at call (/Users/paulinajassa/whiteboard-backend/middleware/auth.js:2:1)
+          at Generator.s (/Users/paulinajassa/whiteboard-backend/middleware/auth.js:2:1)
+          at Generator._invoke [as next] (/Users/paulinajassa/whiteboard-backend/middleware/auth.js:2:1)
+          at asyncGeneratorStep (/Users/paulinajassa/whiteboard-backend/middleware/auth.js:2:1)
+          at asyncGeneratorStep (/Users/paulinajassa/whiteboard-backend/middleware/auth.js:2:1)
+          at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      52 |     res.status(201).json(whiteboard);
+      53 |   } catch (error) {
+    > 54 |     console.error("Error saving whiteboard:", error);
+         |             ^
+      55 |     res.status(500).json({ message: "Server error. Could not save whiteboard." });
+      56 |   }
+      57 | });
+
+      at error (routes/whiteboardRoutes.js:54:13)
+      at call (routes/whiteboardRoutes.js:2:1)
+      at Generator.s (routes/whiteboardRoutes.js:2:1)
+      at Generator._invoke [as next] (routes/whiteboardRoutes.js:2:1)
+      at asyncGeneratorStep (routes/whiteboardRoutes.js:2:1)
+      at asyncGeneratorStep (routes/whiteboardRoutes.js:2:1)
+      at _next (routes/whiteboardRoutes.js:2:1)
+      at routes/whiteboardRoutes.js:2:1
+      at apply (routes/whiteboardRoutes.js:57:2)
+      at Layer.handleRequest (node_modules/router/lib/layer.js:152:17)
+      at next (node_modules/router/lib/route.js:157:13)
+      at Route.dispatch (node_modules/router/lib/route.js:117:3)
+      at handle (node_modules/router/index.js:435:11)
+      at Layer.handleRequest (node_modules/router/lib/layer.js:152:17)
+      at node_modules/router/index.js:295:15
+      at processParams (node_modules/router/index.js:582:12)
+      at next (node_modules/router/index.js:291:5)
+      at next (middleware/auth.js:17:13)
+      at call (middleware/auth.js:2:1)
+      at Generator.s (middleware/auth.js:2:1)
+      at Generator._invoke [as next] (middleware/auth.js:2:1)
+      at asyncGeneratorStep (middleware/auth.js:2:1)
+      at asyncGeneratorStep (middleware/auth.js:2:1)
+
+    console.log
+      ➡️ Incoming: GET /api/whiteboard
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      Testing GET route with ID: new ObjectId('696d370915233891bbfcc091')
+
+      at log (tests/whiteboard.test.js:102:13)
+
+    console.log
+      ➡️ Incoming: GET /api/whiteboard/696d370915233891bbfcc091
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: GET /api/whiteboard/696d370915233891bbfcc09c
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: DELETE /api/whiteboard/696d370915233891bbfcc09f
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: DELETE /api/whiteboard/696d370915233891bbfcc0a3
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: DELETE /api/whiteboard/696d370915233891bbfcc0a8
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc0a6', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: YES
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: PUT /api/whiteboard/696d370915233891bbfcc091
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: PUT /api/whiteboard/696d370915233891bbfcc0af
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc08e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: NO
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: PUT /api/whiteboard/696d370915233891bbfcc0b4
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370915233891bbfcc0b2', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: YES
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      Test database connection closed.
+
+      at log (tests/whiteboard.test.js:228:9)
+
+  ● POST /api/whiteboard › should add number suffix for duplicate titles
+
+    expected 201 "Created", got 500 "Internal Server Error"
+
+      72 |       .set('Authorization', `Bearer ${token}`)
+      73 |       .send({ title: 'Duplicate Title' })
+    > 74 |       .expect(201);
+         |        ^
+      75 |
+      76 |     const response2 = await request(app)
+      77 |       .post('/api/whiteboard')
+
+      at expect (tests/whiteboard.test.js:74:8)
+      at call (tests/whiteboard.test.js:2:1)
+      at Generator.s (tests/whiteboard.test.js:2:1)
+      at Generator._invoke [as next] (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at _next (tests/whiteboard.test.js:2:1)
+      at Object.<anonymous> (tests/whiteboard.test.js:2:1)
+      ----
+      at Test._assertStatus (node_modules/supertest/lib/test.js:267:14)
+      at node_modules/supertest/lib/test.js:323:13
+      at Test._assertFunction (node_modules/supertest/lib/test.js:300:13)
+      at Test.assert (node_modules/supertest/lib/test.js:179:23)
+      at Server.localAssert (node_modules/supertest/lib/test.js:135:14)
+
+  ● GET /api/whiteboard › should return all whiteboards for the logged-in user
+
+    expected 200 "OK", got 500 "Internal Server Error"
+
+      91 |       .get('/api/whiteboard')
+      92 |       .set('Authorization', `Bearer ${token}`)
+    > 93 |       .expect(200);
+         |        ^
+      94 |
+      95 |     expect(Array.isArray(response.body)).toBe(true);
+      96 |     expect(response.body.length).toBeGreaterThan(0);
+
+      at expect (tests/whiteboard.test.js:93:8)
+      at call (tests/whiteboard.test.js:2:1)
+      at Generator.s (tests/whiteboard.test.js:2:1)
+      at Generator._invoke [as next] (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at _next (tests/whiteboard.test.js:2:1)
+      at Object.<anonymous> (tests/whiteboard.test.js:2:1)
+      ----
+      at Test._assertStatus (node_modules/supertest/lib/test.js:267:14)
+      at node_modules/supertest/lib/test.js:323:13
+      at Test._assertFunction (node_modules/supertest/lib/test.js:300:13)
+      at Test.assert (node_modules/supertest/lib/test.js:179:23)
+      at Server.localAssert (node_modules/supertest/lib/test.js:135:14)
+
+  ● GET /api/whiteboard/:id › should return a whiteboard by ID
+
+    expected 200 "OK", got 500 "Internal Server Error"
+
+      105 |       .get(`/api/whiteboard/${testWhiteboard._id}`)
+      106 |       .set('Authorization', `Bearer ${token}`)
+    > 107 |       .expect(200);
+          |        ^
+      108 |
+      109 |     expect(response.body.title).toBe('Test Whiteboard');
+      110 |     expect(response.body.createdBy).toBe(testUser._id.toString());
+
+      at expect (tests/whiteboard.test.js:107:8)
+      at call (tests/whiteboard.test.js:2:1)
+      at Generator.s (tests/whiteboard.test.js:2:1)
+      at Generator._invoke [as next] (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at _next (tests/whiteboard.test.js:2:1)
+      at Object.<anonymous> (tests/whiteboard.test.js:2:1)
+      ----
+      at Test._assertStatus (node_modules/supertest/lib/test.js:267:14)
+      at node_modules/supertest/lib/test.js:323:13
+      at Test._assertFunction (node_modules/supertest/lib/test.js:300:13)
+      at Test.assert (node_modules/supertest/lib/test.js:179:23)
+      at Server.localAssert (node_modules/supertest/lib/test.js:135:14)
+
+  ● DELETE /api/whiteboard/:id › should delete a whiteboard by ID
+
+    expected 200 "OK", got 500 "Internal Server Error"
+
+      130 |       .delete(`/api/whiteboard/${whiteboardToDelete._id}`)
+      131 |       .set('Authorization', `Bearer ${token}`)
+    > 132 |       .expect(200);
+          |        ^
+      133 |
+      134 |     expect(response.body.message).toBe('Whiteboard deleted');
+      135 |   });
+
+      at expect (tests/whiteboard.test.js:132:8)
+      at call (tests/whiteboard.test.js:2:1)
+      at Generator.s (tests/whiteboard.test.js:2:1)
+      at Generator._invoke [as next] (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      ----
+      at Test._assertStatus (node_modules/supertest/lib/test.js:267:14)
+      at node_modules/supertest/lib/test.js:323:13
+      at Test._assertFunction (node_modules/supertest/lib/test.js:300:13)
+      at Test.assert (node_modules/supertest/lib/test.js:179:23)
+      at Server.localAssert (node_modules/supertest/lib/test.js:135:14)
+
+  ● PUT /api/whiteboard/:id › should update a whiteboard title
+
+    expected 200 "OK", got 500 "Internal Server Error"
+
+      178 |       .set('Authorization', `Bearer ${token}`)
+      179 |       .send(updatedData)
+    > 180 |       .expect(200);
+          |        ^
+      181 |
+      182 |     expect(response.body.title).toBe('Updated Title');
+      183 |   });
+
+      at expect (tests/whiteboard.test.js:180:8)
+      at call (tests/whiteboard.test.js:2:1)
+      at Generator.s (tests/whiteboard.test.js:2:1)
+      at Generator._invoke [as next] (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at asyncGeneratorStep (tests/whiteboard.test.js:2:1)
+      at _next (tests/whiteboard.test.js:2:1)
+      at Object.<anonymous> (tests/whiteboard.test.js:2:1)
+      ----
+      at Test._assertStatus (node_modules/supertest/lib/test.js:267:14)
+      at node_modules/supertest/lib/test.js:323:13
+      at Test._assertFunction (node_modules/supertest/lib/test.js:300:13)
+      at Test.assert (node_modules/supertest/lib/test.js:179:23)
+      at Server.localAssert (node_modules/supertest/lib/test.js:135:14)
+
+PASS tests/userRoutes.test.js
+  ● Console
+
+    console.log
+      ➡️ Incoming: POST /api/users/register
+
+      at log (app.js:19:11)
+
+    console.log
+      BODY: {
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'register@example.com',
+        password: 'Test1234'
+      }
+
+      at log (routes/userRoutes.js:12:13)
+
+    console.log
+      MongoDB Connected to TEST (Cloud): 127.0.0.1
+
+      at log (config/db.js:18:13)
+
+    console.log
+      ➡️ Incoming: POST /api/users/register
+
+      at log (app.js:19:11)
+
+    console.log
+      BODY: {
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'login@example.com',
+        password: 'Test1234'
+      }
+
+      at log (routes/userRoutes.js:12:13)
+
+    console.log
+      ➡️ Incoming: POST /api/users/login
+
+      at log (app.js:19:11)
+
+    console.log
+      isMatch: true
+
+      at log (routes/userRoutes.js:61:17)
+
+    console.log
+      ➡️ Incoming: POST /api/users/register
+
+      at log (app.js:19:11)
+
+    console.log
+      BODY: {
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test_1768765193438_799@test.com',
+        password: 'Test1234'
+      }
+
+      at log (routes/userRoutes.js:12:13)
+
+    console.log
+      ➡️ Incoming: POST /api/users/login
+
+      at log (app.js:19:11)
+
+    console.log
+      isMatch: true
+
+      at log (routes/userRoutes.js:61:17)
+
+    console.log
+      ➡️ Incoming: GET /api/users/me
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370988a9bf0ace2be748', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: YES
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      DEBUG: Response Body is: {
+        _id: '696d370988a9bf0ace2be748',
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test_1768765193438_799@test.com',
+        createdAt: '2026-01-18T19:39:53.443Z',
+        updatedAt: '2026-01-18T19:39:53.443Z',
+        __v: 0
+      }
+
+      at log (tests/userRoutes.test.js:76:9)
+
+    console.log
+      Response body: {
+        _id: '696d370988a9bf0ace2be748',
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test_1768765193438_799@test.com',
+        createdAt: '2026-01-18T19:39:53.443Z',
+        updatedAt: '2026-01-18T19:39:53.443Z',
+        __v: 0
+      }
+
+      at log (tests/userRoutes.test.js:77:9)
+
+    console.log
+      ➡️ Incoming: POST /api/users/register
+
+      at log (app.js:19:11)
+
+    console.log
+      BODY: {
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test_1768765193581_337@test.com',
+        password: 'Test1234'
+      }
+
+      at log (routes/userRoutes.js:12:13)
+
+    console.log
+      ➡️ Incoming: POST /api/users/login
+
+      at log (app.js:19:11)
+
+    console.log
+      isMatch: true
+
+      at log (routes/userRoutes.js:61:17)
+
+    console.log
+      ➡️ Incoming: PUT /api/users/update-password
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370988a9bf0ace2be74e', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: YES
+
+      at log (middleware/auth.js:16:21)
+
+    console.log
+      ➡️ Incoming: POST /api/users/register
+
+      at log (app.js:19:11)
+
+    console.log
+      BODY: {
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test_1768765193835_848@test.com',
+        password: 'Test1234'
+      }
+
+      at log (routes/userRoutes.js:12:13)
+
+    console.log
+      ➡️ Incoming: POST /api/users/login
+
+      at log (app.js:19:11)
+
+    console.log
+      isMatch: true
+
+      at log (routes/userRoutes.js:61:17)
+
+    console.log
+      ➡️ Incoming: DELETE /api/users/delete
+
+      at log (app.js:19:11)
+
+    console.log
+      DECODED TOKEN { id: '696d370988a9bf0ace2be756', iat: 1768765193, exp: 1768768793 }
+
+      at log (middleware/auth.js:14:21)
+
+    console.log
+      USER FOUND: YES
+
+      at log (middleware/auth.js:16:21)
+
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       5 failed, 12 passed, 17 total
+Snapshots:   0 total
+Time:        1.969 s, estimated 2 s
+Ran all test suites matching /tests\//i.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
