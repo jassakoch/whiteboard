@@ -72,9 +72,6 @@ describe('User Routes', () => {
       .get('/api/users/me')
       .set('Authorization', `Bearer ${token}`);
 
-//  temporary debug line:
-console.log("DEBUG: Response Body is:", res.body);
-console.log("Response body:", res.body)
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty('email', email);
     expect(res.body).not.toHaveProperty('password');
