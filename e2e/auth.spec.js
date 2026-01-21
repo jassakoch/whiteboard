@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 
 
 // This is the part Playwright was complaining about
-test.describe('Authentication Lifecycle: Postman Flow', async ({request}) => {
+test('Authentication Lifecycle: Postman Flow', async ({request}) => {
 // ARRANGE
 const timestamp = Date.now();
 const testUser = {
@@ -51,7 +51,7 @@ expect(token).toBeDefined();
 await test.step('Step 3: Access a protected route with the token', async () => {
     const response = await request.get('/api/users/me', {
             headers: {
-'Authorization': `Bearer ${authToken}`
+'Authorization': `Bearer ${token}`
             }
         })
         expect(response.status()).toBe(200);
