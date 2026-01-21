@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+
+
+
+// This is the part Playwright was complaining about
+test.describe('Authentication Lifecycle: Postman Flow', async ({request}) => {
 // ARRANGE
 const timestamp = Date.now();
 const testUser = {
@@ -9,12 +14,10 @@ const testUser = {
   password: "SecurePassword123"
 };
 
-let authToken;
+let token;
 
-// This is the part Playwright was complaining about
-test.describe('Authentication Lifecycle', () => {
 
-  test('Step 1: Register a new User', async ({ request }) => {
+  await test.step('Step 1: Register a new User', async () => {
     // ACT
     const response = await request.post('/api/users/register', {
       data: testUser
@@ -25,7 +28,10 @@ test.describe('Authentication Lifecycle', () => {
     const body = await response.json();
     expect(body.message).toBe("User registered successfully");
   });
-  test('Step 2: Login with new credentials', async ({ request})=> {
+
+
+  await test.step('Step 2: Login and Capture JWT', async ()=> {
+    //ACT
 const response = await request.post('/api/users/login', {
     data: {
        email: testUser.email,
@@ -38,10 +44,11 @@ expect(response.status()).toBe(200);
 const body = await response.json();
 
 expect(body).toHaveProperty('token')
-authToken = body.token //Save it for the next "Act"
+token = body.token //Save it for the next "Act"
+expect(token).toBeDefined();
 });
 
-test('Step 3: Access a protected route with the token', async ({request}) => {
+await test.step('Step 3: Access a protected route with the token', async () => {
     const response = await request.get('/api/users/me', {
             headers: {
 'Authorization': `Bearer ${authToken}`
