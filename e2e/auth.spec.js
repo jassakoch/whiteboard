@@ -1,11 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 
-
-
-// This is the part Playwright was complaining about
 test('Authentication Lifecycle: Postman Flow', async ({request}) => {
-// ARRANGE
+// ----- ARRANGE -----
 const timestamp = Date.now();
 const testUser = {
   firstName: "Junior",
@@ -16,7 +13,7 @@ const testUser = {
 
 let token;
 
-
+//----- STEP 1: REGISTER -----
   await test.step('Step 1: Register a new User', async () => {
     // ACT
     const response = await request.post('/api/users/register', {
@@ -30,6 +27,7 @@ let token;
   });
 
 
+  // ----- STEP 2: LOGIN -----
   await test.step('Step 2: Login and Capture JWT', async ()=> {
     //ACT
 const response = await request.post('/api/users/login', {
@@ -48,6 +46,7 @@ token = body.token //Save it for the next "Act"
 expect(token).toBeDefined();
 });
 
+// ----- STEP 3: ACCESS PROTECTED ROUTE ----- 
 await test.step('Step 3: Access a protected route with the token', async () => {
     const response = await request.get('/api/users/me', {
             headers: {
