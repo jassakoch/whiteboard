@@ -56,5 +56,14 @@ test.describe('Registration - Error Cases', ( () => {
     expect(body.message).toBe("Email already registered");
     });
 
+    test('should fail if the password is missing', async ({request})=> {
+        const response = await request.post('/api/users/register',
+{data: {firstName: "no", lastName: "Pass",email: "missingpassword@test.com"} });
+
+        expect(response.status()).toBe(400);
+        const body = await response.json();
+        expect(body.message).toBe('All fields are required');
+    })
+
 })
 )
