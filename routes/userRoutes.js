@@ -36,7 +36,13 @@ userRouter.post('/register', async (req, res) => {
 
         await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ message: 'User registered successfully',
+            user: {
+                _id: newUser._id,
+                firstName: newUser.firstName,
+                email: newUser.email
+            }
+         });
 
     } catch (err) {
         console.error('Error registering user:', err);
